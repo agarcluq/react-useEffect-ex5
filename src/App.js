@@ -17,20 +17,28 @@ const [equipo,setEquipo] = useState([])
 
   // Dinámicos
     useEffect(()=>{
-    console.log('hola')
-
+    obtenerDatos()
   },[])
 
   const obtenerDatos = async () =>{
-    await fetch('https://jsonplaceholder.typicode.com/users')
+    const data = await fetch('https://jsonplaceholder.typicode.com/users');
+    const users = await data.json()
+    console.log(users)
+    setEquipo(users)
   }
 
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
-      <div>{equipo.map((item,index)=>{
-        <p key={index}>{item.equipo}</p>
-      })}</div>
+      <h1>Usuarios</h1>
+      <ul>
+        {
+          equipo.map(item => 
+            (
+            <li key={item.id}>{item.name} - {item.username}</li>
+            )
+          )
+        }
+      </ul>
     </div>
   );
 }
